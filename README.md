@@ -12,7 +12,7 @@ Automation Google Test
 Чтобы установить и запустить этот проект на локальном компьютере, выполните следующие шаги:
 
 1. Скачайте проект в IDEA с помощью команды
-   `git clone `
+   `git clone https://github.com/Crex114/playwrightTests.git`
 
 ## Использование
 
