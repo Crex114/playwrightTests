@@ -18,7 +18,7 @@ pipeline {
             steps {
                 // Установка Chrome с помощью Maven
                 sh '''
-                mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
+                mvn exec:java -e -X -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
                 '''
             }
         }
