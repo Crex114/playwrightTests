@@ -3,7 +3,7 @@ pipeline {
     
     tools {
         // Указываем использовать установленный Maven
-        gradle 'gradle jenkins'
+        maven 'maven jenkins'
     }
     
     stages {
@@ -14,12 +14,12 @@ pipeline {
             }
         }
         
-        // stage('Install Chrome via Maven') {
-        //     steps {
-        //         // Установка Chrome с помощью Maven
-        //         sh 'mvn exec:java -e --D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"'
-        //     }
-        // }
+        stage('Install Chrome via Maven') {
+            steps {
+                // Установка Chrome с помощью Maven
+                sh 'mvn exec:java -e --D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"'
+            }
+        }
 
         stage('Ensure executable permissions for gradlew') {
             steps {
