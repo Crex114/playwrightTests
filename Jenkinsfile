@@ -9,6 +9,13 @@ pipeline {
             }
         }
 
+        stage('Ensure executable permissions for gradlew') {
+            steps {
+                // Выполнение команды для предоставления прав на выполнение gradlew
+                sh 'chmod +x gradlew'
+            }
+        }
+
         stage('Install Playwright Browser') {
             steps {
                 // Установка браузера Playwright с помощью Gradle
