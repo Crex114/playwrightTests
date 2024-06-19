@@ -9,14 +9,11 @@ pipeline {
             }
         }
 
-        stage('Install Chrome') {
+        stage('Install Chrome via Maven') {
             steps {
-                // Установка Chrome
+                // Установка Chrome с помощью Maven
                 sh '''
-                wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-                sudo sh -c 'echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-                sudo apt-get update
-                sudo apt-get install -y google-chrome-stable
+                mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
                 '''
             }
         }
