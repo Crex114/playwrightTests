@@ -9,6 +9,16 @@ pipeline {
             }
         }
 
+        stage('Install Maven') {
+            steps {
+                // Установка Maven
+                sh '''
+                apt-get update
+                apt-get install -y maven
+                '''
+            }
+        }
+
         stage('Install Chrome via Maven') {
             steps {
                 // Установка Chrome с помощью Maven
