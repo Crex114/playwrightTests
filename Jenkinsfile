@@ -3,7 +3,7 @@ pipeline {
     
     tools {
         // Указываем использовать установленный Maven
-        maven 'Maven 3.9.8'
+        maven 'maven jenkins'
     }
     
     stages {
