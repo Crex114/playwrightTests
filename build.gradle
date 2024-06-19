@@ -33,3 +33,7 @@ task deleteCompileFolders(type: Delete) {
     delete 'allure-results'
     delete 'build'
 }
+
+task installPlaywrightBrowser(type: Exec) {
+    commandLine 'mvn', 'exec:exec', '-e', '-Dexec.mainClass=com.microsoft.playwright.CLI', '-Dexec.args=install chrome'
+}
