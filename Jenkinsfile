@@ -1,6 +1,11 @@
 pipeline {
     agent any
-
+    
+    tools {
+        // Указываем использовать установленный Maven
+        maven 'Maven 3.9.8'
+    }
+    
     stages {
         stage('Checkout') {
             steps {
@@ -8,22 +13,12 @@ pipeline {
                 git url: 'https://github.com/Crex114/playwrightTests.git', branch: 'main'
             }
         }
-
-        stage('Install Maven') {
-            steps {
-                // Установка Maven
-                sh '''
-                sudo apt-get update
-                sudo apt-get install -y maven
-                '''
-            }
-        }
-
+        
         stage('Install Chrome via Maven') {
             steps {
                 // Установка Chrome с помощью Maven
                 sh '''
-                sudo mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
+                mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
                 '''
             }
         }
