@@ -13,8 +13,8 @@ pipeline {
             steps {
                 // Установка Maven
                 sh '''
-                apt-get update
-                apt-get install -y maven
+                sudo apt-get update
+                sudo apt-get install -y maven
                 '''
             }
         }
@@ -23,7 +23,7 @@ pipeline {
             steps {
                 // Установка Chrome с помощью Maven
                 sh '''
-                mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
+                sudo mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"
                 '''
             }
         }
