@@ -61,6 +61,14 @@ pipeline {
     post {
         always {
             // Действия, которые будут выполнены независимо от результата сборки
+            allure([
+                includeProperties: false,
+                jdk: '',
+                properties: [],
+                reportBuildPolicy: 'ALWAYS',
+                results: [[path: 'build/allure-results']]
+            ])
+            
             cleanWs() // Очистка рабочей области Jenkins
         }
         success {
