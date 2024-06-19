@@ -12,7 +12,7 @@ pipeline {
         stage('Install Playwright Browser') {
             steps {
                 // Установка браузера Playwright с помощью Maven
-                sh './gradlew installPlaywrightBrowser'
+                sh 'mvn exec -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"'
             }
         }
 
