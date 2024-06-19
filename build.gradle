@@ -33,3 +33,9 @@ task deleteCompileFolders(type: Delete) {
     delete 'allure-results'
     delete 'build'
 }
+
+task installPlaywrightBrowser(type: JavaExec) {
+    classpath = sourceSets.main.runtimeClasspath
+    main = 'com.microsoft.playwright.CLI'
+    args = ['install', 'chrome']
+}
