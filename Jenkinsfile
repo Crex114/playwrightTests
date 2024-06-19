@@ -19,7 +19,7 @@ pipeline {
         stage('Install Playwright Browser') {
             steps {
                 // Установка браузера Playwright с помощью Gradle
-                sh './gradlew installPlaywrightBrowser'
+                sh './gradlew -x installPlaywrightBrowser'
             }
         }
 
