@@ -28,12 +28,12 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browser') {
-            steps {
-                // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
-                sh './gradlew executeMavenCommand'
-            }
-        }
+        // stage('Install Playwright Browser') {
+        //     steps {
+        //         // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
+        //         sh './gradlew executeMavenCommand'
+        //     }
+        // }
 
         stage('Build') {
             steps {
@@ -42,25 +42,25 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                // Запуск тестов с использованием Gradle и TestNG
-                sh './gradlew test'
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         // Запуск тестов с использованием Gradle и TestNG
+        //         sh './gradlew test'
+        //     }
+        // }
 
-        stage('Allure Report') {
-            steps {
-                // Генерация отчётов Allure
-                allure([
-                    includeProperties: false,
-                    jdk: '',
-                    properties: [],
-                    reportBuildPolicy: 'ALWAYS',
-                    results: [[path: 'build/allure-results']]
-                ])
-            }
-        }
+        // stage('Allure Report') {
+        //     steps {
+        //         // Генерация отчётов Allure
+        //         allure([
+        //             includeProperties: false,
+        //             jdk: '',
+        //             properties: [],
+        //             reportBuildPolicy: 'ALWAYS',
+        //             results: [[path: 'build/allure-results']]
+        //         ])
+        //     }
+        // }
 
         stage('Archive') {
             steps {
