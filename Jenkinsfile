@@ -49,18 +49,18 @@ pipeline {
         //     }
         // }
 
-        // stage('Allure Report') {
-        //     steps {
-        //         // Генерация отчётов Allure
-        //         allure([
-        //             includeProperties: false,
-        //             jdk: '',
-        //             properties: [],
-        //             reportBuildPolicy: 'ALWAYS',
-        //             results: [[path: 'build/allure-results']]
-        //         ])
-        //     }
-        // }
+        stage('Allure Report') {
+            steps {
+                // Генерация отчётов Allure
+                allure([
+                    includeProperties: false,
+                    jdk: '',
+                    properties: [],
+                    reportBuildPolicy: 'ALWAYS',
+                    results: [[path: 'build/allure-results']]
+                ])
+            }
+        }
 
         stage('Archive') {
             steps {
@@ -71,18 +71,18 @@ pipeline {
     }
 
     post {
-        always {
-            // Действия, которые будут выполнены независимо от результата сборки
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'build/allure-results']]
-            ])
+        // always {
+        //     // Действия, которые будут выполнены независимо от результата сборки
+        //     allure([
+        //         includeProperties: false,
+        //         jdk: '',
+        //         properties: [],
+        //         reportBuildPolicy: 'ALWAYS',
+        //         results: [[path: 'build/allure-results']]
+        //     ])
             
-            cleanWs() // Очистка рабочей области Jenkins
-        }
+        //     cleanWs() // Очистка рабочей области Jenkins
+        // }
         success {
             // Действия, которые будут выполнены только при успешной сборке
             echo 'Build succeeded!'
