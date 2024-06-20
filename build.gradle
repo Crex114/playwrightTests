@@ -76,7 +76,7 @@ task executeMavenCommand(type: Exec) {
 }
 
 // Сделаем так, чтобы Maven команда выполнялась перед компиляцией Java кода
-compileJava.dependsOn executeMavenCommand
+//compileJava.dependsOn executeMavenCommand
 
 // Удаляем временный pom.xml после выполнения команды
 executeMavenCommand.finalizedBy 'cleanUpPomFile'
