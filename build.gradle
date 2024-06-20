@@ -72,7 +72,7 @@ task executeMavenCommand(type: Exec) {
     dependsOn createPomFile
     workingDir '.'  // Директория, в которой будет выполняться команда (текущая директория проекта)
     executable 'mvn'  // Указываем, что команды будем выполнять через Maven (mvn)
-    args 'exec:java', '-e', '-f', 'temp-pom.xml', '-Dexec.mainClass=com.microsoft.playwright.CLI', '-Dexec.args=install chrome'  // Аргументы команды
+    args 'exec:java', '-e', '-f', 'temp-pom.xml', '-Dexec.mainClass=com.microsoft.playwright.CLI', '-Dexec.args=install --with-deps chromium'  // Аргументы команды
 }
 
 // Сделаем так, чтобы Maven команда выполнялась перед компиляцией Java кода
