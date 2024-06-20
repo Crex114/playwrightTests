@@ -28,12 +28,12 @@ pipeline {
             }
         }
 
-        stage('Install Playwright Browser') {
-            steps {
-                // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
-                sh './gradlew executeMavenCommand'
-            }
-        }
+        // stage('Install Playwright Browser') {
+        //     steps {
+        //         // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
+        //         sh './gradlew executeMavenCommand'
+        //     }
+        // }
 
         stage('Build') {
             steps {
