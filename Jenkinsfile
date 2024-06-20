@@ -31,7 +31,7 @@ pipeline {
         stage('Install Playwright Browser') {
             steps {
                 // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
-                sh 'sudo ./gradlew executeMavenCommand'
+                sh './gradlew executeMavenCommand'
             }
         }
 
