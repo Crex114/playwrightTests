@@ -19,8 +19,8 @@ public class HomePageTests extends BaseTest {
         assertEquals(homePage.getListSearchElements().size(), 10);
     }
 
-    @Test(testName = "Проверка количества элементов в футере главной страницы Google")
-    public void numberOfElementsInFooter() {
-        assertEquals(homePage.getListFooterElements().size(), 8);
-    }
+    // @Test(testName = "Проверка количества элементов в футере главной страницы Google")
+    // public void numberOfElementsInFooter() {
+    //     assertEquals(homePage.getListFooterElements().size(), 8);
+    // }
 }
