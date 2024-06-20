@@ -1,10 +1,10 @@
 pipeline {
     agent any
     
-    tools {
-        // Указываем использовать установленный Maven
-        maven 'maven jenkins'
-    }
+    // tools {
+    //     // Указываем использовать установленный Maven
+    //     maven 'maven jenkins'
+    // }
     
     stages {
         stage('Checkout') {
