@@ -4,6 +4,8 @@ pipeline {
     tools {
         // Указываем использовать установленный Maven
         maven 'maven jenkins'
+        gradle 'gradle jenkins'
+        allure 'allure jenkins'
     }
     
     stages {
@@ -14,30 +16,31 @@ pipeline {
             }
         }
         
-        // stage('Install Chrome via Maven') {
+        stage('Install Chrome via Maven') {
+            steps {
+                // Установка Chrome с помощью Maven
+                sh 'mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"'
+            }
+        }
+
+        // stage('Ensure executable permissions for gradlew') {
         //     steps {
-        //         // Установка Chrome с помощью Maven
-        //         sh 'mvn exec:java -e --D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install chrome"'
+        //         // Выполнение команды для предоставления прав на выполнение gradlew
+        //         sh 'chmod +x gradlew'
         //     }
         // }
 
-        stage('Ensure executable permissions for gradlew') {
-            steps {
-                // Выполнение команды для предоставления прав на выполнение gradlew
-                sh 'chmod +x gradlew'
-            }
-        }
-
-        stage('Install Playwright Browser') {
-            steps {
-                // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
-                sh './gradlew executeMavenCommand'
-            }
-        }
+        // stage('Install Playwright Browser') {
+        //     steps {
+        //         // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
+        //         sh './gradlew executeMavenCommand'
+        //     }
+        // }
 
         stage('Build') {
             steps {
                 // Компиляция проекта с использованием Gradle
+                sh 'chmod +x gradlew'
                 sh './gradlew clean build'
             }
         }
