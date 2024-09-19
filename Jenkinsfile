@@ -40,8 +40,8 @@ pipeline {
         stage('Build') {
             steps {
                 // Компиляция проекта с использованием Gradle
-                sh 'chmod +x gradlew'
-                sh './gradlew clean test'
+                //sh 'chmod +x gradlew'
+                sh 'gradle clean test'
             }
         }
 
