@@ -31,7 +31,7 @@ public class BaseTest {
 
         browser = Playwright
                 .create()
-                .chromium()
+                .firefox()
                 .launch(new BrowserType.LaunchOptions().setHeadless(false));//.setChannel("chrome"));
 
         context = browser.newContext();
