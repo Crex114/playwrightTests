@@ -9,7 +9,7 @@ import java.util.List;
 
 public class HomePage implements HasAppPanel {
     private final Page page;
-    private final String searchLocator = "//*[@title='Поиск']";
+    private final String searchLocator = "//*[@id='APjFqb']";
     private final String searchListLocator = "//ul[@role='listbox']/li[@role='presentation']";
     private final String useFileCookiesCard = "//div[@id='CXQnmb']";
     private final String acceptAllButton = "//button[@id='L2AGLb']";

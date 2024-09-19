@@ -10,7 +10,7 @@ public interface HasAppPanel {
 
     @Step("Получение иконки меню приложений Google")
     default ElementHandle getApplicationIcon() {
-        return getPage().querySelector("//a[@aria-label='Приложения Google']");
+        return getPage().querySelector("//a[contains(@href, 'https://www.google') and contains(@href, 'about/products')]");
     }
 
 }
