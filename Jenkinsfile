@@ -9,19 +9,19 @@ pipeline {
     }
     
     stages {
-        stage('Checkout') {
-            steps {
-                // Проверка исходного кода из системы контроля версий (например, Git)
-                git url: 'https://github.com/Crex114/playwrightTests.git', branch: 'main'
-            }
-        }
+//         stage('Checkout') {
+//             steps {
+//                 // Проверка исходного кода из системы контроля версий (например, Git)
+//                 git url: 'https://github.com/Crex114/playwrightTests.git', branch: 'main'
+//             }
+//         }
         
-        stage('Install Chrome via Maven') {
-            steps {
-                // Установка Chrome с помощью Maven
-                sh 'mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"'
-            }
-        }
+//         stage('Install Chrome via Maven') {
+//             steps {
+//                 // Установка Chrome с помощью Maven
+//                 sh 'mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"'
+//             }
+//         }
 
         // stage('Ensure executable permissions for gradlew') {
         //     steps {
@@ -41,7 +41,7 @@ pipeline {
             steps {
                 // Компиляция проекта с использованием Gradle
                 sh 'chmod +x gradlew'
-                sh './gradlew clean build'
+                sh './gradlew clean test'
             }
         }
 
