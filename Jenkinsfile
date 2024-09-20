@@ -41,6 +41,7 @@ pipeline {
             steps {
                 // Компиляция проекта с использованием Gradle
                 //sh 'chmod +x gradlew'
+                sh 'ls -a'
                 sh 'gradle clean test'
             }
         }
