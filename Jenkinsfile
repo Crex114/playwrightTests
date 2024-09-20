@@ -42,6 +42,9 @@ pipeline {
                 // Компиляция проекта с использованием Gradle
                 //sh 'chmod +x gradlew'
                 sh 'ls -a'
+                sh 'docker build -t my-playwright-gradle .'
+                sh 'docker run -p 8090:8090 -it --rm --ipc=host my-playwright-gradle'
+                sh 'chmod +x gradle'
                 sh 'gradle clean test'
             }
         }
