@@ -1,102 +1,55 @@
 pipeline {
     agent any
-    
-    tools {
-        // Указываем использовать установленный Maven
-        maven 'maven jenkins'
-        gradle 'gradle jenkins'
-        allure 'allure jenkins'
+
+    environment {
+        IMAGE_NAME = 'my-playwright-gradle'
+        CONTAINER_NAME = 'playwright_container'
+        PORT_MAPPING = '8090:8090'
+        GRADLE_WRAPPER = './gradlew'  // Путь к Gradle Wrapper, если используется
     }
-    
+
     stages {
-//         stage('Checkout') {
-//             steps {
-//                 // Проверка исходного кода из системы контроля версий (например, Git)
-//                 git url: 'https://github.com/Crex114/playwrightTests.git', branch: 'main'
-//             }
-//         }
-        
-//         stage('Install Chrome via Maven') {
-//             steps {
-//                 // Установка Chrome с помощью Maven
-//                 sh 'mvn exec:java -e -D exec.mainClass=com.microsoft.playwright.CLI -D exec.args="install --with-deps chromium"'
-//             }
-//         }
-
-        // stage('Ensure executable permissions for gradlew') {
-        //     steps {
-        //         // Выполнение команды для предоставления прав на выполнение gradlew
-        //         sh 'chmod +x gradlew'
-        //     }
-        // }
-
-        // stage('Install Playwright Browser') {
-        //     steps {
-        //         // Установка браузера Playwright с помощью Gradle // Исключаем тесты для отладки установки браузера
-        //         sh './gradlew executeMavenCommand'
-        //     }
-        // }
-
-        stage('Build') {
+        stage('Clone Repository') {
             steps {
-                // Компиляция проекта с использованием Gradle
-                //sh 'chmod +x gradlew'
-                sh 'ls -a'
-                sh 'docker build -t my-playwright-gradle .'
-                sh 'docker run -p 8090:8090 -it --rm --ipc=host my-playwright-gradle'
-                sh 'chmod +x gradle'
-                sh 'gradle clean test'
+                script {
+                    // Клонирование репозитория из Git
+                    git url: 'https://github.com/Crex114/playwrightTests', branch: 'main' // Укажите URL и ветку
+                    sh "ls -a"
+                    sh "pwd"
+                }
             }
         }
 
-        // stage('Test') {
-        //     steps {
-        //         // Запуск тестов с использованием Gradle и TestNG
-        //         sh './gradlew test'
-        //     }
-        // }
-
-        // stage('Allure Report') {
-        //     steps {
-        //         // Генерация отчётов Allure
-        //         allure([
-        //             includeProperties: false,
-        //             jdk: '',
-        //             properties: [],
-        //             reportBuildPolicy: 'ALWAYS',
-        //             results: [[path: 'build/allure-results']]
-        //         ])
-        //     }
-        // }
-
-        stage('Archive') {
+        stage('Build Docker Image') {
             steps {
-                // Архивация артефактов (например, jar-файлов)
-                archiveArtifacts artifacts: '**/build/libs/*.jar', allowEmptyArchive: true
+                script {
+                    // Сборка Docker-образа
+                    docker.build(IMAGE_NAME, '.')
+                }
+            }
+        }
+
+        stage('Run Container') {
+            steps {
+                script {
+                    // Запуск Docker-контейнера
+                    docker.image(IMAGE_NAME).run("-p ${PORT_MAPPING} -it --rm --ipc=host --name ${CONTAINER_NAME}") {
+                        sh "chmod +x gradle"
+                        sh "gradle clean test"
+                    }
+                }
             }
         }
     }
 
     post {
         always {
-            // Действия, которые будут выполнены независимо от результата сборки
-            allure([
-                includeProperties: false,
-                jdk: '',
-                properties: [],
-                reportBuildPolicy: 'ALWAYS',
-                results: [[path: 'build/allure-results']]
-            ])
-            
-            cleanWs() // Очистка рабочей области Jenkins
-        }
-        success {
-            // Действия, которые будут выполнены только при успешной сборке
-            echo 'Build succeeded!'
-        }
-        failure {
-            // Действия, которые будут выполнены только при неудачной сборке
-            echo 'Build failed!'
+            // Очистка после выполнения
+            script {
+                // Остановка и удаление контейнера, если он запущен
+                sh "docker stop ${CONTAINER_NAME} || true"
+                sh "docker rm ${CONTAINER_NAME} || true"
+            }
         }
     }
 }
